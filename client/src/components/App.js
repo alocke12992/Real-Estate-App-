@@ -25,6 +25,7 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <Route exact path='/available' component={Available} />
             <Route exact path='/cities' component={Cities} />
+            <Route exact path='/city_cost' component={CityCost} />
             <Route exact path='/find_home' component={FindHome} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />

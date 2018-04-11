@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Form, Grid} from 'semantic-ui-react';
+import {Form, Grid, Card, Header, Divider} from 'semantic-ui-react';
 
 class FindHome extends React.Component {
   state = {
@@ -58,13 +58,16 @@ class FindHome extends React.Component {
 
   showProperties = () => {
     const {properties} = this.state;
-    return properties.map(p =>
-      <List key={p.id}>
-        <List.Content>
-          <List.Header>${p.price} - {p.sq_ft}</List.Header>
-          <List.Description>{p.city}</List.Description>
-        </List.Content>
-      </List>
+    return (
+      <Card.Group>
+        {properties.map(p =>
+          <Card key={p.id}>
+            <Card.Header>{p.city}</Card.Header>
+            <Card.Meta>${p.price}</Card.Meta>
+            <Card.Description>{p.sq_ft}sqft</Card.Description>
+          </Card>
+        )}
+      </Card.Group>
     )
   }
 
@@ -72,8 +75,10 @@ class FindHome extends React.Component {
     const {properties, agent} = this.state;
     return (
       <Grid centered>
+        <Divider hidden />
         <Grid.Row>
-          <Grid.Column width={6}>
+          <Grid.Column width={4}>
+            <Header as='h3'>Select</Header>
             <Form.Select
               fluid
               label="Agent:"
@@ -91,9 +96,8 @@ class FindHome extends React.Component {
               />
             }
           </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={12}>
+          <Grid.Column textAlign='center' width={10}>
+            <Header as='h3'>Properties</Header>
             {properties.length > 0 && this.showProperties()}
           </Grid.Column>
         </Grid.Row>

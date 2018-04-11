@@ -1,6 +1,7 @@
 import React from 'react';
-import {Form, Table, Header, Grid} from 'semantic-ui-react';
+import {Form, Table, Header, Grid, Divider} from 'semantic-ui-react';
 import axios from 'axios';
+import CityCost from './CityCost'
 
 const cities = [
   'Sandy',
@@ -42,14 +43,15 @@ class Cities extends React.Component {
     const {page, total_pages, properties, city} = this.state;
     return (
       <Grid centered>
+        <Divider hidden />
         <Grid.Row>
-          <Form.Select options={options} onChange={this.handleChange} />
-        </Grid.Row>
-        <Grid.Row>
-          <Header>Homes in {city}</Header>
-        </Grid.Row>
-        <Grid.Row>
+          <Grid.Column width={6}>
+            <Form.Select options={options} onChange={this.handleChange} />
+            <Divider hidden />
+            <CityCost />
+          </Grid.Column>
           <Grid.Column width={10}>
+            <Header>Homes in {city}</Header>
             <Table>
               <Table.Header>
                 <Table.Row>
