@@ -17,6 +17,9 @@ class NavBar extends Component {
           <Link to='/cities'>
             <Menu.Item name='Search Cities' />
           </Link>
+          <Link to='/find_home'>
+            <Menu.Item name='Find your Home' />
+          </Link>
           <Menu.Item
             name='Logout'
             onClick={() => dispatch(handleLogout(history))}

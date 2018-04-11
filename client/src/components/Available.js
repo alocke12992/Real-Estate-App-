@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import InfiniteScroll from 'react-infinite-scroller';
-import {List, Header, Table, Grid} from 'semantic-ui-react';
+import {List, Header, Table, Grid, Segment} from 'semantic-ui-react';
 
 const styles = {
   scroller: {height: '80vh', overflow: 'auto'}
@@ -61,61 +61,68 @@ class Available extends React.Component {
   render() {
     const {agents, page, total_pages} = this.state;
     return (
-      <Grid>
+      <Grid centered>
         <Grid.Row>
-          <Grid.Column width={10}>
+          <Header>Available Homes</Header>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={12}>
             <SearchBar onSearchTermChange={this.search} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column width={10}>
-            <List style={styles.scroller}>
-              <InfiniteScroll
-                pageStart={page}
-                loadMore={this.loadMore}
-                hasMore={page < total_pages}
-                useWindow={false}
-              >
-                {agents.map(agent => {
-                  let {agent_id, first_name, last_name, email, phone, properties} = agent;
-                  return (
-                    <List.Item key={agent_id}>
-                      <List.Header>{first_name} {last_name} - {email}</List.Header>
-                      <List.Item>
-                        <Table celled>
-                          <Table.Header>
-                            <Table.Row>
-                              <Table.HeaderCell>Price</Table.HeaderCell>
-                              <Table.HeaderCell>Beds</Table.HeaderCell>
-                              <Table.HeaderCell>Baths</Table.HeaderCell>
-                              <Table.HeaderCell>Sq. Ft.</Table.HeaderCell>
-                              <Table.HeaderCell>Street</Table.HeaderCell>
-                              <Table.HeaderCell>City</Table.HeaderCell>
-                              <Table.HeaderCell>ZIP</Table.HeaderCell>
-                            </Table.Row>
-                          </Table.Header>
-                          <Table.Body>
-                            {properties.map(p =>
-                              <Table.Row key={p.id}>
-                                <Table.Cell>${p.price}</Table.Cell>
-                                <Table.Cell>{p.beds}</Table.Cell>
-                                <Table.Cell>{p.baths}</Table.Cell>
-                                <Table.Cell>{p.sq_ft}</Table.Cell>
-                                <Table.Cell>{p.street}</Table.Cell>
-                                <Table.Cell>{p.city}</Table.Cell>
-                                <Table.Cell>{p.zip}</Table.Cell>
+          <Grid.Column width={12}>
+            <Segment>
+
+              <List style={styles.scroller}>
+                <InfiniteScroll
+                  pageStart={page}
+                  loadMore={this.loadMore}
+                  hasMore={page < total_pages}
+                  useWindow={false}
+                >
+                  {agents.map(agent => {
+                    let {agent_id, first_name, last_name, email, phone, properties} = agent;
+                    return (
+                      <List.Item key={agent_id} style={{marginTop: '20px'}}>
+                        <List.Header style={{fontWeight: 'bold', fontSize: '20px'}}>{first_name} {last_name}</List.Header>
+                        <List.Header style={{fontWeight: '500', fontSize: '15px'}}>{email}</List.Header>
+                        <List.Item>
+                          <Table celled>
+                            <Table.Header>
+                              <Table.Row>
+                                <Table.HeaderCell>Price</Table.HeaderCell>
+                                <Table.HeaderCell>Beds</Table.HeaderCell>
+                                <Table.HeaderCell>Baths</Table.HeaderCell>
+                                <Table.HeaderCell>Sq. Ft.</Table.HeaderCell>
+                                <Table.HeaderCell>Street</Table.HeaderCell>
+                                <Table.HeaderCell>City</Table.HeaderCell>
+                                <Table.HeaderCell>ZIP</Table.HeaderCell>
                               </Table.Row>
-                            )
-                            }
-                          </Table.Body>
-                        </Table>
+                            </Table.Header>
+                            <Table.Body>
+                              {properties.map(p =>
+                                <Table.Row key={p.id}>
+                                  <Table.Cell>${p.price}</Table.Cell>
+                                  <Table.Cell>{p.beds}</Table.Cell>
+                                  <Table.Cell>{p.baths}</Table.Cell>
+                                  <Table.Cell>{p.sq_ft}</Table.Cell>
+                                  <Table.Cell>{p.street}</Table.Cell>
+                                  <Table.Cell>{p.city}</Table.Cell>
+                                  <Table.Cell>{p.zip}</Table.Cell>
+                                </Table.Row>
+                              )
+                              }
+                            </Table.Body>
+                          </Table>
+                        </List.Item>
                       </List.Item>
-                    </List.Item>
-                  )
-                })
-                }
-              </InfiniteScroll>
-            </List>
+                    )
+                  })
+                  }
+                </InfiniteScroll>
+              </List>
+            </Segment>
           </Grid.Column>
         </Grid.Row>
       </Grid>
